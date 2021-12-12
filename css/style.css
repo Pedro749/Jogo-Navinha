@@ -13,12 +13,16 @@ body {
   text-align: center;
 
 }
-.inicio h1 {
-  padding-top: 100px;
+.inicio h1{
+  padding-top: 60px;
   font-family: monospace;
   font-size: 35px;
   margin: 0 auto;
   color: white;
+}
+.inicio h2 {
+  color: white;
+  font-family: monospace;
 }
 .inicio.ativo {
   opacity: 0;
@@ -30,6 +34,5 @@ body {
   color: white;
   font-family: monospace;
   font-size: 20px;
-  
-
+  font-weight: bold;
 }
