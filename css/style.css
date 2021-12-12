@@ -3,3 +3,33 @@ body {
   padding: 0;
   background-color: #334;
 }
+.inicio {
+  width: 600px;
+  height: 300px;
+  position: absolute;
+  background-color: rgba(0, 0, 0);
+  opacity: .9;
+  z-index: 100;
+  text-align: center;
+
+}
+.inicio h1 {
+  padding-top: 100px;
+  font-family: monospace;
+  font-size: 35px;
+  margin: 0 auto;
+  color: white;
+}
+.inicio.ativo {
+  opacity: 0;
+}
+.visor {
+  position: absolute;
+  left: 200px;
+  top: 320px;
+  color: white;
+  font-family: monospace;
+  font-size: 20px;
+  
+
+}

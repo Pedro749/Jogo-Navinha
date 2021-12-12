@@ -10,6 +10,8 @@ class Ship {
     this.moves = debounce(this.moves.bind(this), 10);
     this.createEnimies = this.createEnimies.bind(this);
     this.index = 120;
+    this.life = 3;
+    this.score = 0;
   }
 
   createShip() {
@@ -43,6 +45,7 @@ class Ship {
         && ((+element.style.top.replace(/\D/g, '')-10 > +enimie.style.top.replace(/\D/g, '') - 20))
         && ((+element.style.top.replace(/\D/g, '') < +enimie.style.top.replace(/\D/g, '') + 25))){
           if (enimie.parentNode === this.tela && element.parentNode === this.tela) {
+            this.score += 1;
             this.tela.removeChild(element);
             this.tela.removeChild(enimie);
           }
@@ -60,6 +63,7 @@ class Ship {
     }
 
     const move = () => {
+      this.countScore();
       if (direction === 'right') {
         positionX += 20;
         this.colision(elemento);
@@ -73,6 +77,12 @@ class Ship {
         clearTimeout(inter);
         if (elemento.parentNode === this.tela) {
           this.tela.removeChild(elemento);
+          if (direction === 'left') {
+            this.life -=1;
+          }
+          if (this.life === 0) {
+            this.endGame();
+          }
         }
       }
     }
@@ -111,18 +121,29 @@ class Ship {
         this.shoot(this.index);
         break;
       case 'Enter':
+        const start = document.querySelector('.inicio');
+        start.classList.add('ativo');
         this.aliens = setInterval(() => { 
           this.createEnimies();
         }, 2000);
-       
-        break;
-      case 'p':
         break;
     }
   }
 
+  countScore() {
+    const lifes = document.querySelector('.lifes');
+    lifes.innerHTML = `LIFES: ${this.life}`
+    const score = document.querySelector('.score');
+    score.innerHTML = `SCORE: ${this.score}`
+  }
+
   addEvents() {
     document.addEventListener('keydown', this.moves);
+  }
+
+  endGame() {
+    const reset = confirm('PERDEU!!!');
+    if (reset) window.location = 'index.html';
   }
 
   init() {
@@ -130,7 +151,6 @@ class Ship {
     this.createShip();
     return this;
   }
-
 }
 
 const nave = new Ship();
