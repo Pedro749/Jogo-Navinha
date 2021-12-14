@@ -12,6 +12,8 @@ class Ship {
     this.index = 120;
     this.life = 3;
     this.score = 0;
+    this.speedMove = 20;
+    this.count = 5;
   }
 
   createShip() {
@@ -46,6 +48,7 @@ class Ship {
         && ((+element.style.top.replace(/\D/g, '') < +enimie.style.top.replace(/\D/g, '') + 25))){
           if (enimie.parentNode === this.tela && element.parentNode === this.tela) {
             this.score += 1;
+            this.count -= 1;
             this.tela.removeChild(element);
             this.tela.removeChild(enimie);
           }
@@ -55,6 +58,7 @@ class Ship {
 
   movement(elemento, direction) {
     let positionX;
+    this.addSpeed();
 
     if (direction === 'right') {
       positionX = 70;
@@ -68,7 +72,7 @@ class Ship {
         positionX += 20;
         this.colision(elemento);
       } else if (direction === 'left') {
-        positionX -= 20;
+        positionX -= this.speedMove;
       }
       elemento.style.left = `${positionX}px`;
       let inter = setTimeout(move, 200);
@@ -134,7 +138,13 @@ class Ship {
     const lifes = document.querySelector('.lifes');
     lifes.innerHTML = `LIFES: ${this.life}`
     const score = document.querySelector('.score');
-    score.innerHTML = `SCORE: ${this.score}`
+    score.innerHTML = `SCORE: ${this.score}`;
+  }
+  addSpeed() {
+    if (this.count === 0) {
+      this.speedMove += 1;
+      this.count = 5;
+    }
   }
 
   addEvents() {
